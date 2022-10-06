@@ -21,7 +21,7 @@ public class InmuebleRepository : IInmuebleRepository
 
     public async Task CreateInmueble(Inmueble inmueble)
     {
-        var usuario = await _userManager.FindByNameAsync( _usuarioSesion.ObtenerUsuarioSesion());
+        var usuario = await _userManager.FindByNameAsync(_usuarioSesion.ObtenerUsuarioSesion());
 
         if (usuario is null)
         {
@@ -41,25 +41,28 @@ public class InmuebleRepository : IInmuebleRepository
 
         inmueble.FechaCreacion = DateTime.Now;
         inmueble.UsuarioId = Guid.Parse(usuario!.Id);
+
+        _contexto.Inmuebles!.Add(inmueble);
     }
 
     public void DeleteInmueble(int id)
     {
-        throw new NotImplementedException();
+        var inmueble = _contexto.Inmuebles!.FirstOrDefault(x => x.Id == id);
+        _contexto.Inmuebles!.Remove(inmueble!);
     }
 
     public IEnumerable<Inmueble> GetAllInmuebles()
     {
-        throw new NotImplementedException();
+        return _contexto.Inmuebles!.ToList();
     }
 
     public Inmueble GetInmuebleById(int id)
-    {
-        throw new NotImplementedException();
+    { 
+        return _contexto.Inmuebles!.FirstOrDefault(x => x.Id == id)!;
     }
 
     public bool SaveChanges()
     {
-        throw new NotImplementedException();
+        return (_contexto.SaveChanges() >= 0);
     }
 }
