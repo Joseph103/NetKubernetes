@@ -5,13 +5,13 @@ namespace NetKubernetes.Data.Inmuebles;
 public interface IInmuebleRepository
 {
     
-    bool SaveChanges();
+    Task<bool> SaveChanges();
 
-    IEnumerable<Inmueble> GetAllInmuebles();
+    Task<IEnumerable<Inmueble>> GetAllInmuebles();
 
-    Inmueble GetInmuebleById(int id);
+    Task<Inmueble> GetInmuebleById(int id);
 
     Task CreateInmueble(Inmueble inmueble);
 
-    void DeleteInmueble(int id);
+    Task DeleteInmueble(int id);
 }
