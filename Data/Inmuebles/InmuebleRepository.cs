@@ -59,7 +59,8 @@ public class InmuebleRepository : IInmuebleRepository
 
     public async Task<Inmueble> GetInmuebleById(int id)
     { 
-        return await _contexto.Inmuebles!.FirstOrDefaultAsync(x => x.Id == id)!;
+        var result = await _contexto.Inmuebles!.FirstOrDefaultAsync(x => x.Id == id)!;
+        return result!;
     }
 
     public async Task<bool> SaveChanges()
